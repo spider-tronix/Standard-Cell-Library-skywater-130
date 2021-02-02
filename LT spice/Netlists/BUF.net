@@ -1,0 +1,13 @@
+* O:\VSD Intern\LT spice\Schematics\BUF.asc
+V1 Vdd 0 1.8
+V2 A 0 PULSE(0 1.8 0 0 0 5 10)
+M1 N003 A 0 N004 NMOS l=0.13u w=0.13u
+M2 Vdd A N003 N001 PMOS l=0.13u w=0.13u
+M3 Y N003 0 N005 NMOS l=0.13u w=0.13u
+M4 Vdd N003 Y N002 PMOS l=0.13u w=0.13u
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\hi\Documents\LTspiceXVII\lib\cmp\standard.mos
+.tran 50
+.backanno
+.end
