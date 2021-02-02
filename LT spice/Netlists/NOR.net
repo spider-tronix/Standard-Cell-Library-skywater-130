@@ -1,0 +1,14 @@
+* O:\VSD Intern\LT spice\Schematics\NOR.asc
+M1 Y A 0 N003 NMOS l=0.13u w=0.13u
+M2 Vdd A P001 N001 PMOS l=0.13u w=0.13u
+V1 Vdd 0 1.8
+V2 A 0 PULSE(0 1.8 0 0 0 5 10)
+M3 Y B 0 N004 NMOS l=0.13u w=0.13u
+M4 P001 B Y N002 PMOS l=0.13u w=0.13u
+V3 B 0 0
+.model NMOS NMOS
+.model PMOS PMOS
+.lib C:\Users\hi\Documents\LTspiceXVII\lib\cmp\standard.mos
+.tran 50
+.backanno
+.end
