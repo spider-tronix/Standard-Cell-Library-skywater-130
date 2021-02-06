@@ -1,0 +1,27 @@
+.option scale=1E-6
+.include "O:/sky130_fd_pr/models/r+c/res_typical__cap_typical__lin.spice"
+.include "O:/sky130_fd_pr/models/r+c/res_typical__cap_typical.spice"
+.include "O:/sky130_fd_pr/models/corners/tt.spice"
+
+X1 Vdd N007 Y N004 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X2 Y N007 0 N011 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X3 Vdd A N003 N001 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X4 Vdd B N003 N002 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X5 N003 A N008 N005 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X6 N003 C N008 N006 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X7 N008 B N007 N009 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X8 N008 C N007 N010 sky130_fd_pr__pfet_01v8 l=0.18 w=2
+X9 N007 A P001 N012 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X10 N007 A P002 N013 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X11 N007 B P003 N014 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X12 P001 B 0 N015 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X13 P002 C 0 N016 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X14 P003 C 0 N017 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+
+V1 A 0 PULSE(0 1.8 0 0 0 5 10)
+V2 B 0 PULSE(0 1.8 0 0 0 2.5 5)
+V3 C 0 1.8
+V4 Vdd 0 1.8
+
+.tran 0.001 50
+.end
