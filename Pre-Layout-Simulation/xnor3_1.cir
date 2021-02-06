@@ -1,0 +1,36 @@
+.option scale=1E-6
+.include "O:/sky130_fd_pr/models/r+c/res_typical__cap_typical__lin.spice"
+.include "O:/sky130_fd_pr/models/r+c/res_typical__cap_typical.spice"
+.include "O:/sky130_fd_pr/models/corners/tt.spice"
+
+X1 Vdd A N012 N002 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X2 N017 B N025 N021 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X3 Vdd A N009 N003 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X4 Vdd B N009 N004 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X5 N012 B N017 N013 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X6 N009 C N017 N014 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X7 Vdd C N010 N005 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X8 Vdd A N010 N006 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X9 Vdd B N010 N007 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X10 N010 N017 Y N015 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X11 N017 C N024 N022 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X12 N025 A 0 N029 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X13 N024 B 0 N030 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X14 N024 A 0 N031 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X15 Y N017 N026 N020 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X16 N026 C 0 N032 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X17 N026 A 0 N033 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X18 N026 B 0 N034 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X19 Vdd A N008 N001 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X20 N008 B N016 N011 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X21 N016 C Y N018 sky130_fd_pr__pfet_01v8 l=0.18 w=1
+X22 Y A N023 N019 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X23 N023 B N028 N027 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X24 N028 C 0 N035 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+
+V1 Vdd 0 1.8
+V2 A 0 PULSE(0 1.8 0 0 0 5 10)
+V3 B 0 0
+V4 C 0 0
+.tran 0.001 50
+.end
