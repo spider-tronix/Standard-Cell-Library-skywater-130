@@ -24,6 +24,6 @@ V3 A 0 1.8
 .tran 0.001n 50n
 .control
 run
-wrdata 0.6n_0.3.data v(Y) v(B)
+wrdata B_0.6n_0.3.data v(Y) v(B)
 .endc
 .end
