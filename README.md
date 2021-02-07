@@ -35,3 +35,13 @@ Ng Spice
 5. plot v(Y) 
 verify the plots
 6. save <filename.raw> v(Y)
+
+## Layout
+
+## Post-Layout Simulation
+
+## Characterization
+.lib format - liberty file format
+Reference : Liberty User Guides and Reference Manual Suite Version 2017.06 ; 
+            http://www.cs.utah.edu/~elb/cadbook/color-figs/Chapter8-Char.pdf
+Variable Parameters : input transition time ; output load capacitance
