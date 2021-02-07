@@ -24,6 +24,6 @@ V3 B 0 1.8
 .tran 0.001n 50n
 .control
 run
-write 103.raw v(Y) v(A)
+wrdata 0.06n_0.6.data v(Y) v(A)
 .endc
 .end

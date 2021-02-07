@@ -25,7 +25,7 @@ def Netlist_Build(output_nodes,input_nodes,Pulse_Node,input_slew,output_capacita
     ## Add control commands
     temp_circuit.append(".control")
     temp_circuit.append("run")
-    temp_circuit.append("write "+str(i)+str(j)+str(k)+".raw" + " v(Y) " + "v(" +  Pulse_Node + ")")
+    temp_circuit.append("wrdata "+input_slew + "_" + output_capacitance +  ".data" + " v(Y) " + "v(" +  Pulse_Node + ")")
     temp_circuit.append(".endc")
     ## Add .end command 
     temp_circuit.append(".end")
