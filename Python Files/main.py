@@ -16,5 +16,4 @@ for i in range(len(V_y)):
     if(V_y[i][0].isnumeric()==True):
         Vnode_y.append(V_y[i].split("\t")[2])
 print(Vnode_y)
-t = list(range(5066))
 plt.plot(Vnode_y,t)
