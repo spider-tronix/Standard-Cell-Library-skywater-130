@@ -45,3 +45,7 @@ verify the plots
 Reference : Liberty User Guides and Reference Manual Suite Version 2017.06 ; 
             http://www.cs.utah.edu/~elb/cadbook/color-figs/Chapter8-Char.pdf
 Variable Parameters : input transition time ; output load capacitance
+
+input_net_transition : 0.06, 0.18, 0.42, 0.6, 1.2 ns
+
+total_output_net_capacitance : 0.025, 0.05, 0.1, 0.3, 0.6 pf
