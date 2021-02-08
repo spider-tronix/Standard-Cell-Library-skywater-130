@@ -202,6 +202,8 @@ t_fall = list()
 t_temp_1 = 0
 t_temp_2 = 0
 
+
+
 ## Find Output Rise and Fall Delay
 for i in range(len(V_out_upper_line_slope)):
     
@@ -247,6 +249,33 @@ print(output_rise_time*10**9)
 print("Output Fall Time in ns : ")
 print(output_fall_time*10**9)
 
+t_cell_rise = list()
+t_cell_fall = list()
+t_temp_1 = 0
+t_temp_2 = 0
+
+## Find Cell Rise and Cell Fall Delay
+for i in range(len(V_in_mid_line_slope)):
+    ## Fall
+    if (V_out_mid_line_slope[i] == -1):
+        t_cell_fall.append(t[V_out_mid_line[i]]-t[V_in_mid_line[i]])
+    else:
+        t_cell_rise.append(t[V_out_mid_line[i]]-t[V_in_mid_line[i]])
+
+print("Cell Fall delay")
+print(t_cell_fall)
+print("Cell Rise delay")
+print(t_cell_rise)
+
+cell_rise_time = sum(t_cell_rise)/len(t_cell_rise)
+cell_fall_time = sum(t_cell_fall)/len(t_cell_fall)
+
+print("Cell rise delay")
+print(cell_rise_time)
+print("Cell fall delay")
+print(cell_fall_time)
+
+#return [cell_rise_time,cell_fall_time,output_rise_time,output_fall_time]
 ##        
 ####-----Circuit Parameters-----##
 ##Vdd = 1.8
