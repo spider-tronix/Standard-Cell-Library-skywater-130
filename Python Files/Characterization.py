@@ -80,11 +80,15 @@ for i in range(len(vectors)):
     
 Vdd = 1.8
 V_out_upper_threshold = 0.8*Vdd
-V_out_lower_threshold = 0.8*Vdd
+V_out_lower_threshold = 0.2*Vdd
+V_out_mid_threshold = 0.5*Vdd
+
 V_out_upper_line = list()
 V_out_upper_line_slope = list()
 V_out_lower_line = list()
 V_out_lower_line_slope = list()
+V_out_mid_line = list()
+V_out_mid_line_slope = list()
 
 for i in range(len(Vout)):
     if(abs(Vout[i] - V_out_upper_threshold)<0.001):
@@ -100,6 +104,14 @@ for i in range(len(Vout)):
             V_out_lower_line_slope.append(-1)
         else:
             V_out_lower_line_slope.append(1)
+    if(abs(Vout[i] - V_out_mid_threshold)<0.001):
+        V_out_mid_line.append(i)
+        if(Vout[i]-Vout[i-1]<0):
+            V_out_mid_line_slope.append(-1)
+        else:
+            V_out_mid_line_slope.append(1)
+
+            
         print(str(V_out_upper_threshold) + " " + str(Vout[i]))
         print(str(V_out_lower_threshold) + " " + str(Vout[i]))
         
@@ -107,7 +119,7 @@ print(V_out_upper_line)
 print(V_out_upper_line_slope)
 print(V_out_lower_line)
 print(V_out_lower_line_slope)
-prev_m = V_out_lower_line_slope[0]
+
 i = 1
 while(i<len(V_out_upper_line)):
     if(V_out_upper_line_slope[i-1]==V_out_upper_line_slope[i]):
@@ -115,14 +127,126 @@ while(i<len(V_out_upper_line)):
             V_out_upper_line.pop(i)
             V_out_upper_line_slope.pop(i)
         else:
-            V_out_upper_line[i-1].pop(i)
-            V_out_upper_line_slope[i-1].pop(i)
+            V_out_upper_line.pop(i-1)
+            V_out_upper_line_slope.pop(i-1)
+    else:
+        i=i+1
+        
+i = 1
+while(i<len(V_out_lower_line)):
+    if(V_out_lower_line_slope[i-1]==V_out_lower_line_slope[i]):
+        if(Vout[V_out_lower_line[i]]-V_out_lower_threshold > Vout[V_out_lower_line[i-1]]-V_out_lower_threshold):
+            V_out_lower_line.pop(i)
+            V_out_lower_line_slope.pop(i)
+        else:
+            V_out_lower_line.pop(i-1)
+            V_out_lower_line_slope.pop(i-1)
     else:
         i=i+1
 
+i = 1
+while(i<len(V_out_mid_line)):
+    if(V_out_mid_line_slope[i-1]==V_out_mid_line_slope[i]):
+        if(Vout[V_out_mid_line[i]]-V_out_mid_threshold > Vout[V_out_mid_line[i-1]]-V_out_mid_threshold):
+            V_out_mid_line.pop(i)
+            V_out_mid_line_slope.pop(i)
+        else:
+            V_out_mid_line.pop(i-1)
+            V_out_mid_line_slope.pop(i-1)
+    else:
+        i=i+1
+
+
+
 print("filtered Values")
+print("V_out_upper")
 print(V_out_upper_line)
 print(V_out_upper_line_slope)
+print("V_out_mid")
+print(V_out_mid_line)
+print(V_out_mid_line_slope)
+print("V_out_lower")
+print(V_out_lower_line)
+print(V_out_lower_line_slope)
+
+V_in_mid_line = list()
+V_in_mid_line_slope = list()
+V_in_mid_threshold = 0.5*Vdd
+
+for i in range(len(Vin)):
+    if(abs(Vin[i] - V_in_mid_threshold)<0.01):
+        V_in_mid_line.append(i)
+        if(Vin[i]-Vin[i-1]<0):
+            V_in_mid_line_slope.append(-1)
+        else:
+            V_in_mid_line_slope.append(1)
+
+
+i = 1
+while(i<len(V_in_mid_line)):
+    if(V_in_mid_line_slope[i-1]==V_in_mid_line_slope[i]):
+        if(Vin[V_in_mid_line[i]]-V_in_mid_threshold > Vin[V_in_mid_line[i-1]]-V_in_mid_threshold):
+            V_in_mid_line.pop(i)
+            V_in_mid_line_slope.pop(i)
+        else:
+            V_in_mid_line.pop(i-1)
+            V_in_mid_line_slope.pop(i-1)
+    else:
+        i=i+1
+    
+print("V_in_Mid")
+print(V_in_mid_line)
+print(V_in_mid_line_slope)
+t_rise = list()
+t_fall = list()
+t_temp_1 = 0
+t_temp_2 = 0
+
+## Find Output Rise and Fall Delay
+for i in range(len(V_out_upper_line_slope)):
+    
+    ## Fall
+    if (V_out_upper_line_slope[i] == -1):
+##        if Vout[V_out_upper_line[i]] >  V_out_upper_threshold :
+##            t_temp_1 = t[i] + (V_out_upper_threshold - Vout[V_out_upper_line[i]])*(t[V_out_upper_line[i]+1]-t[V_out_upper_line[i]])/(Vout[V_out_upper_line[i]+1]-Vout[V_out_upper_line[i]])
+##        else :
+##            t_temp_1 = t[i] + (V_out_upper_threshold - Vout[V_out_upper_line[i]])*(t[V_out_upper_line[i]-1]-t[V_out_upper_line[i]])/(Vout[V_out_upper_line[i]-1]-Vout[V_out_upper_line[i]])
+##
+##        if Vout[V_out_lower_line[i]] >  V_out_lower_threshold :
+##            t_temp_2 = t[i] + (V_out_lower_threshold - Vout[V_out_lower_line[i]])*(t[V_out_lower_line[i]+1]-t[V_out_lower_line[i]])/(Vout[V_out_lower_line[i]+1]-Vout[V_out_lower_line[i]])
+##        else :
+##            t_temp_2 = t[i] + (V_out_lower_threshold - Vout[V_out_lower_line[i]])*(t[V_out_lower_line[i]-1]-t[V_out_lower_line[i]])/(Vout[V_out_lower_line[i]-1]-Vout[V_out_lower_line[i]])
+##        t_fall.append(t_temp_2-t_temp_1)
+        t_fall.append(t[V_out_lower_line[i]]-t[V_out_upper_line[i]]) 
+        
+    ## Rise
+    else:
+##        if Vout[V_out_upper_line[i]] >  V_out_upper_threshold :
+##            t_temp_1 = t[i] + (V_out_upper_threshold - Vout[V_out_upper_line[i]])*(t[V_out_upper_line[i]-1]-t[V_out_upper_line[i]])/(Vout[V_out_upper_line[i]-1]-Vout[V_out_upper_line[i]])
+##        else:
+##            t_temp_1 = t[i] + (V_out_upper_threshold - Vout[V_out_upper_line[i]])*(t[V_out_upper_line[i]+1]-t[V_out_upper_line[i]])/(Vout[V_out_upper_line[i]+1]-Vout[V_out_upper_line[i]])
+##
+##        if Vout[V_out_lower_line[i]] >  V_out_lower_threshold :
+##            t_temp_2 = t[i] + (V_out_lower_threshold - Vout[V_out_lower_line[i]])*(t[V_out_lower_line[i]-1]-t[V_out_lower_line[i]])/(Vout[V_out_lower_line[i]-1]-Vout[V_out_lower_line[i]])
+##        else :
+##            t_temp_2 = t[i] + (V_out_lower_threshold - Vout[V_out_lower_line[i]])*(t[V_out_lower_line[i]+1]-t[V_out_lower_line[i]])/(Vout[V_out_lower_line[i]+1]-Vout[V_out_lower_line[i]])
+##        t_rise.append(t_temp_1-t_temp_2)
+        t_rise.append(t[V_out_upper_line[i]]-t[V_out_lower_line[i]] ) 
+        
+
+print("T fall Output")
+print(t_fall)
+print("T rise Output")
+print(t_rise)
+
+output_rise_time  = sum(t_rise)/len(t_rise)
+output_fall_time  = sum(t_fall)/len(t_fall)
+
+print("Output Rise Time in ns : ")
+print(output_rise_time*10**9)
+print("Output Fall Time in ns : ")
+print(output_fall_time*10**9)
+
 ##        
 ####-----Circuit Parameters-----##
 ##Vdd = 1.8
