@@ -1,14 +1,15 @@
 import subprocess
-
-def Netlist_Build(output_nodes,input_nodes,Pulse_Node,input_slew,output_capacitance,Time_Period,source_circuit):
+import os
+import csv
+def Netlist_Build(output_nodes,input_nodes,Pulse_Node,input_slew,output_capacitance,Time_Period,Vdd,source_circuit):
     
     print ("\n for input " + Pulse_Node +  " vs " + " output node Y\n" )
     temp_circuit = source_circuit[:]
-    temp_circuit.append("CL " + output_nodes[0] + " " + "0 " + output_capacitance + "pF")
+    temp_circuit.append("CL " + output_nodes[0] + " " + "0 " + output_capacitance + "F")
     
     ## Pulsating Node :  Syntax 	 PULSE(V1 V2 TD TR TF PW PER) Ex : V2 A 0 PULSE(0 1.8 0 0 0 5 10)
     ## V2 A 0 PULSE(0 1.8 0 0.06n 0.06n 10.0n 20n)
-    temp_circuit.append("V2 " + Pulse_Node + " 0" + " PULSE(0 1.8 0 " +  input_slew + " "  + input_slew + " " + str(Time_Period/2) + "n " + str(Time_Period) + "n)")
+    temp_circuit.append("V2 " + Pulse_Node + " 0" + " PULSE(0 " + str(Vdd) + " 0 " +  input_slew + " "  + input_slew + " " + str(Time_Period/2) + "n " + str(Time_Period) + "n)")
     
     ## other input nodes
     k=3
@@ -42,7 +43,7 @@ def NgSpice_Run(input_nodes,input_slew,output_capacitance):
             for k in range(len(output_capacitance)):
                 try:
                     filename = str(i)+str(j)+str(k)+".cir"
-                    command = "ngspice -b /home/akil/Standard-Cell-Library-skywater-130/Characterization/" + filename 
+                    command = "ngspice -b ../Characterization/" + filename 
                     subprocess.check_call(command,shell=True)
                     #a = subprocess.check_output(['ngspice', '-b', filename], shell=True). subprocess.check_call()
                 except:
@@ -279,82 +280,157 @@ def Characterization_run(input_nodes,input_slew,output_capacitance,pulse_node):
 ##    print("Cell fall delay")
 ##    print(cell_fall_time)
 
-    return [cell_rise_time,cell_fall_time,output_rise_time,output_fall_time]
+    return [cell_rise_time*(10**9),cell_fall_time*(10**9),output_rise_time*(10**9),output_fall_time*(10**9)]
+
+def Delete_Files(input_nodes,input_slew,output_capacitance):
+    for i in range(len(input_nodes)):
+        for j in range(len(input_slew)):
+            for k in range(len(output_capacitance)):
+                filename = str(i)+str(j)+str(k)+".cir"
+                os.remove("../Characterization/"+filename)
+                print("Deleted file " + filename)
+                os.remove(input_nodes[i]+"_"+input_slew[j] + "_" + output_capacitance[k] +  ".data")
+                print("Deleted file " + input_nodes[i]+"_"+input_slew[j] + "_" + output_capacitance[k] +  ".data")
+
+        
 
 
 ##---- Main Function----##
+                
+def main():
 
+    ##----List The spice files in the directory and get the choice----##
+    Netlists_Total = os.listdir("../Characterization/Netlists")
+    i = 1 
+    while(i<len(Netlists_Total)):
+        if(Netlists_Total[i].endswith(".cir")) == False:
+            Netlists_Total.pop(i)
+        else:
+            i=i+1
+    for i in range(len(Netlists_Total)):
+        print( str(i) + " : " + Netlists_Total[i])
 
-##-----Circuit Parameters-----##
-Vdd = 1.8
-input_slew = ['0.06n', '0.18n', '0.42n', '0.6n', '1.2n' ]
-output_capacitance = ['0.025', '0.05', '0.1', '0.3', '0.6' ]
-Time_Period = 20 ## ns
-
-##-----Processing Netlist-----##
-f = open("/home/akil/Standard-Cell-Library-skywater-130/Characterization/Netlists/xor2_1x.cir", "r")
-circuit = f.read()
-circuit = circuit.split("\n")
-circuit.remove(".end")
-
-##-----Input and Output Nodes-----##
-#input_nodes = list()
-#still = 'Y'
-##while still == 'Y':
-##    input_nodes.append(input("Enter the input nodes \n"))
-##    still = input("Are there any more input nodes?(Y/N) \n")
-input_nodes = ['A','B']
-
-#still = 'Y'
-#output_nodes = list()
-##while still == 'Y':
-##    output_nodes.append(input("Enter the output nodes \n"))
-##    still = input("Are there any more output nodes?(Y/N) \n")
-output_nodes = ["Y"]
-
-##-----Add Source Voltage-----#
-circuit.append("\nV1 Vdd 0 1.8")
-source_circuit = circuit
-temp_circuit = list()
-cir = ''
-
-print("Source Circuit Read")
-print("Building Netlists")
-for i in range(len(input_nodes)):
-    for j in range(len(input_slew)):
-        for k in range(len(output_capacitance)):
-            cir = Netlist_Build(output_nodes,input_nodes,input_nodes[i],input_slew[j],output_capacitance[k],Time_Period,source_circuit)
-            file = open("/home/akil/Standard-Cell-Library-skywater-130/Characterization/"+str(i)+str(j)+str(k)+".cir", "w")
-            print("Netlist Build For " + str(i)+str(j)+str(k)+".cir" + " Complete ")
-            file.write(cir)
-            file.close()
-
-print("Netlists Built Successfully for all different combinations")
-
-print("Running Simulations")
-
-NgSpice_Run(input_nodes,input_slew,output_capacitance)
-            
-Timing = [["cell_rise_time (ns)","cell_fall_time (ns)","output_rise_time (ns)","output_fall_time (ns)"]]
-
-print(" Characterization Algorithm beginning ... ")
-print(" Analyzing Data files ")
-m=1
-file = open("/home/akil/Standard-Cell-Library-skywater-130/Characterization/results.txt", "w")
-string = ''
-for i in range(len(input_nodes)):
-    for j in range(len(input_slew)):
-        for k in range(len(output_capacitance)):
-            Timing.append(Characterization_run(input_nodes,input_slew[j],output_capacitance[k],input_nodes[i]))
-            print(" Case : " + str(m) + "Input Node : " + input_nodes[i] + " Input Slew : " + input_slew[j] + " Output Capacitance : " + output_capacitance[k] + "Complete")
-            print(Timing[0])
-            print(Timing[m])
-            print("\n")
-            file.write(str(m) + "Input Node : " + input_nodes[i] + " Input Slew : " + input_slew[j] + " Output Capacitance : " + output_capacitance[k])
-            file.write(str(Timing[0]))
-            file.write(str(Timing[m]))
-            file.write("\n")
-            m = m+1
-file.close()
+    print("\n")
+    choice = input("Enter the index of the circuit to be characterised \n")
+    choice_file = Netlists_Total[int(choice)]
     
+    ##---- Read the csv file for input datas----##
+    input_read_file = choice_file.split(".")[0]
+    data = list()
+    with open("../Characterization/Netlists/"+input_read_file + '.csv', newline='') as csvfile:
+        input_data = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in input_data:
+            data.append(row)
+            
+    input_nodes = list()
+    i=1
+    temp = str(data[0][0]).split(",")
+    while(i<len(temp)):
+        if temp[i].isalnum() == True :
+            input_nodes.append(temp[i])
+        i=i+1
+
+    output_nodes = list()
+    i=1
+    temp = str(data[1][0]).split(",")
+    while(i<len(temp)):
+        if temp[i].isalnum() == True :
+            output_nodes.append(temp[i])
+        i=i+1
+
+    Vdd = float(data[2][0].split(",")[1])
+    T = float(data[3][0].split(",")[1])
+
+    input_slew = list()
+    i=1
+    temp = str(data[4][0]).split(",")
+    while(i<len(temp)):
+        if len(temp) > 0 :
+            m = str(float(temp[i][:-1])*100/60)+'n'
+            print(m)
+            input_slew.append(m)
+        i=i+1
+
+    output_capacitance = list()
+    i=1
+    temp = str(data[5][0]).split(",")
+    while(i<len(temp)):
+        if len(temp[i]) > 0 :
+            output_capacitance.append(temp[i])
+        i=i+1
+
+    
+    ##-----Processing Netlist-----##
+        
+    f = open("../Characterization/Netlists/"+ choice_file, "r")
+    circuit = f.read()
+    circuit = circuit.split("\n")
+    circuit.remove(".end")
+    circuit.append("\nV1 Vdd 0 " + str(Vdd))
+    source_circuit = circuit
+    temp_circuit = list()
+    cir = ''
+    print("Source Circuit Read")
+    print("Building Netlists")
+
+    ##----- Create Netlists for all different combinations-----##
+    for i in range(len(input_nodes)):
+        for j in range(len(input_slew)):
+            for k in range(len(output_capacitance)):
+                cir = Netlist_Build(output_nodes,input_nodes,input_nodes[i],input_slew[j],output_capacitance[k],T,Vdd,source_circuit)
+                file = open("../Characterization/"+str(i)+str(j)+str(k)+".cir", "w")
+                print("Netlist Build For " + str(i)+str(j)+str(k)+".cir" + " Complete ")
+                file.write(cir)
+                file.close()
+
+    print("Netlists Built Successfully for all different combinations")
+
+    print("Running Simulations")
+
+    NgSpice_Run(input_nodes,input_slew,output_capacitance)
+                
+    Timing = [["cell_rise_time (ns)","cell_fall_time (ns)","output_rise_time (ns)","output_fall_time (ns)"]]
+
+    print(" Characterization Algorithm beginning ... ")
+    print(" Analyzing Data files ")
+    m=1
+    file = open("../Characterization/" + input_read_file+ "Characterisation Results" + ".txt", "w")
+    string = ''
+    rise_transition = list()
+    cell_rise = list()
+    fall_transition = list()
+    cell_fall = list()
+##    return [cell_rise_time*(10**9),cell_fall_time*(10**9),output_rise_time*(10**9),output_fall_time*(10**9)]
+    for i in range(len(input_nodes)):
+        for j in range(len(input_slew)):
+            for k in range(len(output_capacitance)):
+                Timing.append(Characterization_run(input_nodes,input_slew[j],output_capacitance[k],input_nodes[i]))
+                cell_rise.append(Timing[m][0])
+                cell_fall.append(Timing[m][1])
+                rise_transition.append(Timing[m][2])
+                fall_transition.append(Timing[m][3])
+                print(" Case : " + str(m) + "Input Node : " + input_nodes[i] + " Input Slew : " + input_slew[j] + " Output Capacitance : " + output_capacitance[k] + "Complete")
+                print(Timing[0])
+                print(Timing[m])
+                print("\n")
+                file.write(str(m) + ". Input Node : " + input_nodes[i] + " Input Slew : " + input_slew[j] + " Output Capacitance : " + output_capacitance[k])
+                file.write("\n")
+                file.write(str(Timing[0]))
+                file.write("\n")
+                file.write(str(Timing[m]))
+                file.write("\n")
+                file.write("\n")
+                m = m+1
+    
+    x = 0
+    file.close()
+    
+        
+        
+                
+    
+    Delete_Files(input_nodes,input_slew,output_capacitance)
+
+if __name__ == "__main__":
+    main()
     
