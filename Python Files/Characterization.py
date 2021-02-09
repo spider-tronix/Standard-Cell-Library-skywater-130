@@ -1,6 +1,7 @@
 import subprocess
 import os
 import csv
+import xlsxwriter
 def Netlist_Build(output_nodes,input_nodes,Pulse_Node,input_slew,output_capacitance,Time_Period,Vdd,source_circuit):
     
     print ("\n for input " + Pulse_Node +  " vs " + " output node Y\n" )
@@ -27,7 +28,7 @@ def Netlist_Build(output_nodes,input_nodes,Pulse_Node,input_slew,output_capacita
     temp_circuit.append(".endc")
     ## Add .end command 
     temp_circuit.append(".end")
-
+    
     ## Concatenate all Values
     result = ''
     for l in range(len(temp_circuit)):
