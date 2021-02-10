@@ -4,3 +4,5 @@ Vdd,1.8,,,,
 T,20,,,,
 input_slew,0.06n,0.18n,0.42n,0.6n,1.2n
 output_capacitance,0.025p,0.05p,0.1p,0.3p,0.6p
+slew_lower_threshold,20,,,,
+slew_upper_threshold,80,,,,
