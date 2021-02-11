@@ -26,7 +26,7 @@ def NgSpice_Run(input_nodes,input_slew,output_capacitance):
                 
 def main():
 
-    ##----List The spice files in the directory and get the choice----##
+        ##----List The spice files in the directory and get the choice----##
     Netlists_Total = os.listdir("../Characterization/Netlists")
     i = 1 
     while(i<len(Netlists_Total)):
@@ -52,7 +52,7 @@ def main():
     slew_upper_threshold = 0
 
     [logic_string,input_nodes,output_nodes,Vdd,T,input_slew,output_capacitance,slew_lower_threshold,slew_upper_threshold] = xl.Read_input(input_read_file)
-    
+
     print("Input slew Checking :    ")
     print(input_slew)
     ##-----Processing Netlist-----##
@@ -67,13 +67,21 @@ def main():
     print("Source Circuit Read")
     print("Building Netlists")
     in_nodes = list()
+    input_slew_original = list()
+
+    slew_adjustment = 100/(slew_upper_threshold - slew_lower_threshold)
+    for i in range(len(input_slew)):
+        input_slew_original.append(str( slew_adjustment*float(input_slew[i][:-1]))+'n')
+
+    print(input_slew_original)
+    print(slew_upper_threshold)
     ##----- Create Netlists for all different combinations-----##
     for i in range(len(input_nodes)):
         for j in range(len(input_slew)):
             for k in range(len(output_capacitance)):
                 in_nodes = input_nodes[:]
                 in_nodes.remove(input_nodes[i])
-                cir = nb.Netlist_Build(output_nodes,in_nodes,input_nodes[i],input_slew[j],output_capacitance[k],T,Vdd,source_circuit,logic_string)
+                cir = nb.Netlist_Build(output_nodes,in_nodes,input_nodes[i],input_slew_original[j],output_capacitance[k],T,Vdd,source_circuit,logic_string)
                 file = open("../Characterization/"+str(i)+str(j)+str(k)+".cir", "w")
                 print("Netlist Build For " + str(i)+str(j)+str(k)+".cir" + " Complete ")
                 file.write(cir)
@@ -96,20 +104,17 @@ def main():
     cell_rise = list()
     fall_transition = list()
     cell_fall = list()
-    input_slew_original = list()
 
-    for i in range(len(input_slew)):
-        input_slew_original.append(str(float(input_slew[i][:-1])*60/100))
 
     for i in range(len(input_nodes)):
         for j in range(len(input_slew)):
             for k in range(len(output_capacitance)):
-                Timing.append(Characterize.Characterization_run(input_nodes,input_slew[j],output_capacitance[k],input_nodes[i],slew_lower_threshold,slew_upper_threshold,Vdd))
+                Timing.append(Characterize.Characterization_run(input_nodes,input_slew_original[j],output_capacitance[k],input_nodes[i],slew_lower_threshold,slew_upper_threshold,Vdd))
                 cell_rise.append(Timing[m][0])
                 cell_fall.append(Timing[m][1])
                 rise_transition.append(Timing[m][2])
                 fall_transition.append(Timing[m][3])
-                file.write(str(m) + ". Input Node : " + input_nodes[i] + " Input Slew : " + input_slew_original[j] + " Output Capacitance : " + output_capacitance[k])
+                file.write(str(m) + ". Input Node : " + input_nodes[i] + " Input Slew : " + input_slew[j] + " Output Capacitance : " + output_capacitance[k])
                 file.write("\n")
                 file.write(str(Timing[0]))
                 file.write("\n")
@@ -127,7 +132,7 @@ def main():
     xl.Excel_writer(" cell_rise  ",workbook,input_nodes,output_capacitance,input_slew,cell_rise)
     xl.Excel_writer(" fall_transition  ",workbook,input_nodes,output_capacitance,input_slew,fall_transition)
     xl.Excel_writer(" cell_fall  ",workbook,input_nodes,output_capacitance,input_slew,cell_fall)
-    delete.Delete_Files(input_nodes,input_slew,output_capacitance,)
+    delete.Delete_Files(input_nodes,input_slew_original,output_capacitance,)
     workbook.save("../Characterization/"+input_read_file + ' Characterisation Results.xlsx')
 
     

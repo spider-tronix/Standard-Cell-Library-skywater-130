@@ -51,7 +51,7 @@ def Excel_writer(name,workbook,input_nodes,output_capacitance,input_slew,t):
         ## Write Row Header
         for i in range(len(input_slew)):
             index = column + str(row)
-            worksheet[index] =  str(input_slew[i]) + " ns"
+            worksheet[index] =  str(input_slew[i]) + "s"
             worksheet[index].font = Font(bold=True)
             column = chr(ord(column)+1)
 
@@ -61,7 +61,7 @@ def Excel_writer(name,workbook,input_nodes,output_capacitance,input_slew,t):
         ## Write Column Header
         for j in range(len(output_capacitance)):
             index = column + str(row)
-            worksheet[index] =  str(output_capacitance[j]) + " pF"
+            worksheet[index] =  str(output_capacitance[j]) + "F"
             worksheet[index].font = Font(bold=True)
             row = row+1
 
