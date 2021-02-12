@@ -1,6 +1,50 @@
 # Standard-Cell-Library-skywater-130
 Custom made Standard cell Library for skywater 130nm PDK
 
+## Standard Cells List:
+1. xnor2_1x
+2. xnor3_1x
+3. xor2_1x
+4. xor3_1x
+5. maj3
+6. a41oi
+7. o311ai
+8. o31ai
+9. o32ai
+10. o41ai
+
+## Schematic Diagram
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/xor2_1x.PNG" 
+alt="xnor2_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/xnor3_1x.PNG" 
+alt="xnor3_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/xor2_1x.PNG" 
+alt="xor2_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/xor3_1x.PNG" 
+alt="xor3_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/maj3.PNG" 
+alt="maj3" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/a41oi.PNG" 
+alt="a41oi" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/o311ai.PNG" 
+alt="o311ai" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/o31ai.PNG" 
+alt="o31ai" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/o32ai.PNG" 
+alt="o32ai" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/o41ai.PNG" 
+alt="o41ai" >
+
 ## Requirements 
 1. Run the following command to clone the skywater130 MOS models in your local machine 
     ```
