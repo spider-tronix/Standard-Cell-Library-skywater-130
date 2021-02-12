@@ -16,8 +16,9 @@ Description of the original Standard Cell library for Skywater 130 can be found 
 
 # Schematic Diagram
 The following schematic diagrams are obtained using LTSpice. <br/>
-<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/xor2_1x.PNG" 
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/Schematic%20Images/xor2_1x.PNG" 
 alt="xnor2_1x" >
+
 
 <img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/xnor3_1x.PNG" 
 alt="xnor3_1x" >
