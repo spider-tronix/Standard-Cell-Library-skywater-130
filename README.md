@@ -16,7 +16,36 @@ Description of the original Standard Cell library for Skywater 130 can be found 
 
 # Schematic Diagram
 The following schematic diagrams are obtained using LTSpice. <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/Schematic%20Images/xnor2_1x.PNG" 
+alt="xnor2_1x" >
 
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/xnor3_1x.PNG" 
+alt="xnor3_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/xor2_1x.PNG" 
+alt="xor2_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/xor3_1x.PNG" 
+alt="xor3_1x" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/maj3.PNG" 
+alt="maj3" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/a41oi.PNG" 
+alt="a41oi" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/o311ai.PNG" 
+alt="o311ai" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/o31ai.PNG" 
+alt="o31ai" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/o32ai.PNG" 
+alt="o32ai" >
+
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Schematics/Schematic%20Images/o41ai.PNG" 
+alt="o41ai" >
 
 # Pre-Layout Simulation 
 Pre-layout simulation is done using NGspice - an open source SPICE tool for circuit simulation and analysis <br/>
