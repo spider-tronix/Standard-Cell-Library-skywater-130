@@ -1,0 +1,25 @@
+.option scale=1E-6
+.include "/home/akil/sky130_fd_pr/models/r+c/res_typical__cap_typical__lin.spice"
+.include "/home/akil/sky130_fd_pr/models/r+c/res_typical__cap_typical.spice"
+.include "/home/akil/sky130_fd_pr/models/corners/tt.spice"
+
+X1 A_bar A 0 0 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X2 Vdd A A_bar Vdd sky130_fd_pr__pfet_01v8 l=0.18 w=2.3
+X3 B_bar B 0 0 sky130_fd_pr__nfet_01v8 l=0.18 w=1
+X4 Vdd B B_bar Vdd sky130_fd_pr__pfet_01v8 l=0.18 w=2.3
+
+X5 Vdd A N001 Vdd sky130_fd_pr__pfet_01v8 l=0.18 w=4.6
+X6 N001 B Y N001 sky130_fd_pr__pfet_01v8 l=0.18 w=4.6
+X7 Y A N002 N002 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X8 N002 B_bar 0 0 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X9 Vdd A_bar N003 Vdd sky130_fd_pr__pfet_01v8 l=0.18 w=4.6
+X10 N003 B_bar Y N003 sky130_fd_pr__pfet_01v8 l=0.18 w=4.6
+X11 Y A_bar N004 N004 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+X12 N004 B 0 0 sky130_fd_pr__nfet_01v8 l=0.18 w=2
+
+CL Y 0 0.6pF
+V1 Vdd 0 1.8
+V2 A 0 PULSE(0 1.8 0 0.06n 0.06n 10.0n 20n)
+V3 B 0 0
+.tran 0.1n 100n 
+.end
