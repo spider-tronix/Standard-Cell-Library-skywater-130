@@ -1,6 +1,7 @@
 # Standard-Cell-Library-skywater-130
-Custom made Standard cell Library for skywater 130nm PDK
-
+Custom made Standard cell Library for skywater 130nm PDK <br/>
+Description of the original Standard Cell library for Skywater 130 can be found [here](http://diychip.org/sky130/sky130_fd_sc_lp/cells/)<br/>
+**Note : Work Under Progress**
 ## Standard Cells List:
 1. xnor2_1x
 2. xnor3_1x
@@ -13,8 +14,8 @@ Custom made Standard cell Library for skywater 130nm PDK
 9. o32ai
 10. o41ai
 
-## Schematic Diagram
-
+# Schematic Diagram
+The following schematic diagrams are obtained using LTSpice. <br/>
 <img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/xor2_1x.PNG" 
 alt="xnor2_1x" >
 
@@ -45,7 +46,14 @@ alt="o32ai" >
 <img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Schematics/o41ai.PNG" 
 alt="o41ai" >
 
+# Pre-Layout Simulation 
+Pre-layout simulation is done using NGspice - an open source SPICE tool for circuit simulation and analysis <br/>
+**Nmos model** : *sky130_fd_pr__nfet_01v8* <br/>
+**Pmos model** : *sky130_fd_pr__pfet_01v8*
+
 ## Requirements 
+
+### Skywater 130 Primitives
 1. Run the following command to clone the skywater130 MOS models in your local machine 
     ```
     git clone https://foss-eda-tools.googlesource.com/skywater-pdk/libs/sky130_fd_pr
@@ -62,38 +70,38 @@ alt="o41ai" >
     .include "O:/sky130_fd_pr/models/r+c/res_typical__cap_typical.spice"
     .include "O:/sky130_fd_pr/models/corners/tt.spice"
     ```
-## Pre-Layout Simulation 
-Nmos model : sky130_fd_pr__nfet_01v8
-Pmos model : sky130_fd_pr__pfet_01v8
+### Ngspice Installation
 
-LTSpice --> Ngspice
-copy netlist
-remove the .anno command at the end
-add the .model files (ignore if already present)
+## Netlists for Pre-layout Simulation
+Netlists for the pre-layout simulation of standard cells can be found under the [Pre-layout-Simulation](https://github.com/akilm/Standard-Cell-Library-skywater-130/tree/main/Pre-Layout-Simulation) folder. After cloning, the repository the netlists can be run in ngspice using the following commands
 
-Ng Spice
-1. cd <directory path>
-2. source <filename.cir>
-3. run 
-4. plot v(input) 
-5. plot v(Y) 
-verify the plots
-6. save <filename.raw> v(Y)
+## Running Ngspice from Linux Terminal
+1. cd  `<file location>`
+2. ngspice 
+3. source  `<filename.cir>` 
+4. run 
+5. plot v(Y) v(<input_nodes>) 
 
-## Layout
+## Output Waveforms
 
-## Post-Layout Simulation
 
-## Characterization
-.lib format - liberty file format
-Reference : Liberty User Guides and Reference Manual Suite Version 2017.06 ; 
-            http://www.cs.utah.edu/~elb/cadbook/color-figs/Chapter8-Char.pdf
-Variable Parameters : input transition time ; output load capacitance
+# Layout
+Work Under Progress
 
-input_net_transition : 0.06, 0.18, 0.42, 0.6, 1.2 ns
+# Post-Layout Simulation
+Work Under Progress
 
-total_output_net_capacitance : 0.025, 0.05, 0.1, 0.3, 0.6 pf
+# Characterization
+Characterization is done using this [tool](). The tool takes in the Netlist and different input parameters like Logic Function, input slew,  output capacitance, Vdd, Time period of operation, input and output nodes through an excel file with the same name as the SPICE netlist. The tool then runs the Timing Characterization algorithm to obtain the different values like rise_delay, fall_delay, rise_transition, fall_transition. The outputs are stored in an excel format. The Cells are being Characterised for the following input values for sample. <br/>
+Vdd = 1.8 V <br/>
+T = 20 ns  <br/>
+Input Slew : 0.06, 0.18, 0.42, 0.6, 1.2 ns  <br/>
+Output Capacitance : 0.025, 0.05, 0.1, 0.3, 0.6 pf  <br/>
+The complete Description of the tool can be found [here]()
+## Characterization Results:
+1. Timing characteristics : rise_delay, fall_delay, rise_transition, fall_transition related to input pin.
+    ``` Status : Complete ``` 
+    <Attach Results>
 
-Characterization Results:
-1) Timing characteristics : rise_delay, fall_delay, rise_transition, fall_transition related to input pin
-2) Power characteristics : rise_power, fall_power related to input pin and leakage power .
+2) Power characteristics : rise_power, fall_power related to input pin and leakage power . 
+ ``` Status : Work Under Progress ```  
