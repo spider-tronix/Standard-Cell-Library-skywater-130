@@ -84,7 +84,45 @@ Netlists for the pre-layout simulation of standard cells can be found under the 
 5. plot v(Y) v(<input_nodes>) 
 
 ## Output Waveforms
+**xnor2_1x** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/xnor2_1x_waveforms.PNG" 
+alt="xnor2_1x" >
 
+**xnor3_1x** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/xnor3_1x_waveforms.PNG" 
+alt="xnor3_1x" >
+
+**xor2_1x** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/xor2_1x_waveforms.PNG" 
+alt="xor2_1x" >
+
+**xor3_1x** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/xor3_1x_waveforms.PNG" 
+alt="xor3_1x" >
+
+**maj3** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/maj3_waveforms.PNG" 
+alt="maj3" >
+
+**a41oi** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/a41oi_waveforms.PNG" 
+alt="a41oi" >
+
+**o311ai** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/o311ai_waveforms.PNG" 
+alt="o311ai" >
+
+**o31ai** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/o31ai_waveforms.PNG" 
+alt="o31ai" >
+
+**o32ai** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/o32ai_waveforms.PNG" 
+alt="o32ai" >
+
+**o41ai** <br/>
+<img src="https://github.com/akilm/Standard-Cell-Library-skywater-130/blob/main/Pre-Layout-Simulation/Waveforms/o41ai_waveforms.PNG" 
+alt="o41ai" >
 
 # Layout
 Work Under Progress
