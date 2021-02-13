@@ -125,22 +125,27 @@ alt="o32ai" >
 alt="o41ai" >
 
 # Layout
-Work Under Progress
+Later Stages
 
 # Post-Layout Simulation
-Work Under Progress
+Later Stages
 
 # Characterization
-Characterization is done using this [tool](). The tool takes in the Netlist and different input parameters like Logic Function, input slew,  output capacitance, Vdd, Time period of operation, input and output nodes through an excel file with the same name as the SPICE netlist. The tool then runs the Timing Characterization algorithm to obtain the different values like rise_delay, fall_delay, rise_transition, fall_transition. The outputs are stored in an excel format. The Cells are being Characterised for the following input values for sample. <br/>
+Characterization is done using this [tool](https://github.com/akilm/Standard-Cell-Characterization). The tool takes in the Netlist and different input parameters like Logic Function, input slew,  output capacitance, Vdd, Time period of operation, input and output nodes through an excel file with the same name as the SPICE netlist. The tool then runs the Timing Characterization algorithm to obtain the different values like rise_delay, fall_delay, rise_transition, fall_transition. The outputs are stored in an excel format. The Cells are being Characterised for the following input values for sample. <br/>
 Vdd = 1.8 V <br/>
 T = 20 ns  <br/>
 Input Slew : 0.06, 0.18, 0.42, 0.6, 1.2 ns  <br/>
 Output Capacitance : 0.025, 0.05, 0.1, 0.3, 0.6 pf  <br/>
-The complete Description of the tool can be found [here]()
+The complete Description of the tool can be found [here](https://github.com/akilm/Standard-Cell-Characterization)
+
 ## Characterization Results:
 1. Timing characteristics : rise_delay, fall_delay, rise_transition, fall_transition related to input pin.
     ``` Status : Complete ``` 
-    <Attach Results>
+    <img src="https://github.com/akilm/Standard-Cell-Characterization/blob/main/Image%20Files/Characterization%20Results_1.PNG" 
+alt="Characterization Results" >
+    <img src="https://github.com/akilm/Standard-Cell-Characterization/blob/main/Image%20Files/Characterization%20Results_2.PNG" 
+alt="Characterization Results2" >
+    
 
 2) Power characteristics : rise_power, fall_power related to input pin and leakage power . 
  ``` Status : Work Under Progress ```  
