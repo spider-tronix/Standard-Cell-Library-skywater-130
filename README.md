@@ -139,12 +139,13 @@ Output Capacitance : 0.025, 0.05, 0.1, 0.3, 0.6 pf  <br/>
 The complete Description of the tool can be found [here](https://github.com/akilm/Standard-Cell-Characterization)
 
 ## Characterization Results:
-1. Timing characteristics : rise_delay, fall_delay, rise_transition, fall_transition related to input pin.
-    ``` Status : Complete ``` 
+1. Timing characteristics : rise_delay, fall_delay, rise_transition, fall_transition related to input pin. 
+    ``` Status : Complete ``` <br/> <br/>
+    **Results for xor2_1x.cir** <br/>
     <img src="https://github.com/akilm/Standard-Cell-Characterization/blob/main/Image%20Files/Characterization%20Results_1.PNG" 
-alt="Characterization Results" >
+alt="Characterization Results" ><br/>
     <img src="https://github.com/akilm/Standard-Cell-Characterization/blob/main/Image%20Files/Characterization%20Results_2.PNG" 
-alt="Characterization Results2" >
+alt="Characterization Results2" ><br/>
     
 
 2) Power characteristics : rise_power, fall_power related to input pin and leakage power . 
